@@ -61,5 +61,11 @@ class AdminController extends Controller
     		return redirect('admin/login')->withInput()->withErrors([$result['msg']]);
     	}
     }
+    public function clearSession(Request $request){
+        $request->session()->forget('user');
+
+        $request->session()->flush();
+        return redirect('admin/login');
+    }
 
 }

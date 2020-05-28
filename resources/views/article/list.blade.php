@@ -139,6 +139,7 @@
             <div class="content">
             	<div class="head-div">
             		<button onclick="addArticle()">添加文章</button>
+                    <button onclick="clearSession()">清空session</button>
             	</div>
             	<div class="hide-form" id="form">
             		<div class="form-div">
@@ -217,5 +218,8 @@
     		document.getElementById('form').style.display='none';
     		return false;
     	}
+        function clearSession(){
+            window.location.href = '/admin/clearSession/';
+        }
     </script>
 </html>

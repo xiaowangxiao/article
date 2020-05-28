@@ -39,6 +39,7 @@ Route::get('article/delArticle/{id}',['middleware'=>'checkLogin',function(App\Ht
 Route::post('article/addArticle',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article,Illuminate\Http\Request $request){
 	return $article->addArticle($request->all());
 }]);
+Route::get('admin/clearSession','AdminController@clearSession');
 Route::post('article/click','ArticleController@click');
 // Route::auth();
 
