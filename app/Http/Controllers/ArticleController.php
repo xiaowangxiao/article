@@ -51,9 +51,7 @@ class ArticleController extends Controller
     	}
     	
     }
-    public function click(){
-        $request = new request;
-        dump($request->all());exit;
+    public function click(Request $request){
     	$id = $request->all()['id'];
     	if(intval($id)<=0){
     		die(json_encode(['code'=>0,'msg'=>'ID FAIL','data'=>[]]));
