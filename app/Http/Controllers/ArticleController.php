@@ -7,20 +7,25 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Services\AdminServices;
 use App\Services\ArticleServices;
-
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 class ArticleController extends Controller
 {
 	public function _construct(){
+
+	}
+	public function checkLogin($request){
 		$adminServices = new AdminServices;
-		$res = $adminServices->checkLoginStatus();
-		if(!$res){
-			//跳转到登录页
-			return false;
-		}
+		$res = $adminServices->checkLoginStatus($request);
+		return $res;
 	}
     //
     public function getArticleList(Request $request){
+    	$res = $this->checkLogin($request);
+    	if(!$res){
+    		//跳转到登录页
+			return Redirect::to('admin/login');
+    	}
     	$articleServices = new ArticleServices();
     	$data = $articleServices->getArticleList();
     	
@@ -28,6 +33,11 @@ class ArticleController extends Controller
     }
 
     public function delArticle(Request $request){
+    	$res = $this->checkLogin($request);
+    	if(!$res){
+    		//跳转到登录页
+			return Redirect::to('admin/login');
+    	}
     	$params = $request->all();
     	$articleServices = new ArticleServices;
 
@@ -35,6 +45,11 @@ class ArticleController extends Controller
     	return view('article.del',['result'=>$result]);
     }
     public function addArticle(Request $request){
+    	$res = $this->checkLogin($request);
+    	if(!$res){
+    		//跳转到登录页
+			return Redirect::to('admin/login');
+    	}
     	$params = $request->all();
     	$messages = [
     		'title.required'=>'标题不能为空',

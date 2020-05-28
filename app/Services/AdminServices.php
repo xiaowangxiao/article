@@ -25,11 +25,12 @@ class AdminServices{
 		return ['code'=>1,'msg'=>'登录成功','data'=>$userInfo];
 
 	}
-	public function checkLoginStatus(){
+	public function checkLoginStatus($request){
 		$value = $request->session()->get('user');
-    	if(empty($value)){
+    	if($value == null || empty($value->name)){
     		return false;
     	}
+		dump("欢迎你：".$value->name);
     	return true;
     	
 	}
