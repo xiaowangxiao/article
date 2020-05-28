@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 
-use App\Services\AdminServices;
+use App\Services\AdminService;
 class AdminController extends Controller
 {
 
@@ -29,7 +29,7 @@ class AdminController extends Controller
     	if($validator->fails()){
     		return redirect('admin/login')->withErrors($validator)->withInput();
     	}
-    	$adminServices = new AdminServices();
+    	$adminServices = new AdminService();
     	$result = $adminServices->registerUser($params);
     	if($result['code'] === 1){
     		return view('admin/register',['result'=>$result['data']]);
@@ -39,7 +39,6 @@ class AdminController extends Controller
     }
     //登录
     public function checklogin(Request $request){
-
     	$params = $request->all();
     	$messages = [
     		'username.required'=>'用户名不能为空',
@@ -53,7 +52,7 @@ class AdminController extends Controller
     		return redirect('admin/login')->withErrors($validator)->withInput();
     	}
 
-    	$adminServices = new AdminServices();
+    	$adminServices = new AdminService();
     	$result = $adminServices->checkUser($params);
     	if($result['code'] === 1){
     		session(['user' => $result['data']]);//存session，文章操作验证

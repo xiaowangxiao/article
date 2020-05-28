@@ -17,9 +17,29 @@ Route::get('/', function () {
 
 Route::get('admin/login','AdminController@login');
 Route::post('admin/registerUser','AdminController@registerUser');
+// Route::post('admin/checkLogin',['middleware'=>'auth',function(App\Http\Controllers\AdminController $admin){
+// 	return $admin->checkLogin();
+// }]);
 Route::post('admin/checkLogin','AdminController@checkLogin');
-Route::get('article/getArticleList','ArticleController@getArticleList');
-Route::post('article/getArticleList','ArticleController@getArticleList');
-Route::get('article/delArticle','ArticleController@delArticle');
-Route::post('article/addArticle','ArticleController@addArticle');
+// Route::get('article/getArticleList',['middleware'=>'auth',function(App\Http\Controllers\ArticleController $article){
+// 	return $article->getArticleList();
+// }]);
+// Route::get('article/delArticle',['middleware'=>'auth',function(App\Http\Controllers\ArticleController $article){
+// 	return $article->delArticle();
+// }]);
+// Route::post('article/addArticle',['middleware'=>'auth',function(App\Http\Controllers\ArticleController $article){
+// 	return $article->addArticle();
+// }]);
+Route::match(['get', 'post'],'article/getArticleList',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article){
+	return $article->getArticleList();
+}]);
+Route::get('article/delArticle/{id}',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article,$id){
+	return $article->delArticle($id);
+}]);
+Route::post('article/addArticle',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article,Illuminate\Http\Request $request){
+	return $article->addArticle($request->all());
+}]);
 Route::post('article/click','ArticleController@click');
+// Route::auth();
+
+// Route::get('/home', 'HomeController@index');

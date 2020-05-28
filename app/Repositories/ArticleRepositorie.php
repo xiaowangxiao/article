@@ -2,9 +2,10 @@
 namespace App\Repositories;
 use App\Models\Article;
 use App\Models\ClickStatic;
-class ArticleRepositories{
+class ArticleRepositorie{
 	public function getArticleList(){
-		return Article::all();
+		$article = new Article;
+		return $article->orderBy('id', 'ASC')->get()->toArray();;
 	}
 	public function getClickTimesList(){
 		return ClickStatic::all();

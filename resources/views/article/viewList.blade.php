@@ -50,7 +50,7 @@
             <div class="content">
                 @foreach($lists as $list)
                 <div>
-                    <a href="/article/{{$list->id}}.html"/>{{$list->id}}.{{$list->title}}
+                    <a href="/article/{{$list['id']}}.html"/>{{$list['id']}}.{{$list['title']}}
                 </div>
                 @endforeach
                 

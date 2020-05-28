@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 use App\Models\Admin;
-class AdminRepositories{
+class AdminRepositorie{
 	public function registerUser(array $user){
 		$admin = new Admin;
 		$admin->name = $user['username'];

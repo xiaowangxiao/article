@@ -1,9 +1,9 @@
 <?php
 namespace App\Services;
-use App\Repositories\AdminRepositories;
-class AdminServices{
+use App\Repositories\AdminRepositorie;
+class AdminService{
 	public function registerUser(array $user){
-		$adminRepositories = new AdminRepositories;
+		$adminRepositories = new AdminRepositorie;
 		$userInfo = $adminRepositories->checkUser($user);
 		if($userInfo){
 			return ['code'=>0,'msg'=>'用户已存在','data'=>[]];
@@ -12,7 +12,7 @@ class AdminServices{
 		return ['code'=>1,'msg'=>'注册成功','data'=>$result];
 	}
 	public function checkUser(array $user){
-		$adminRepositories = new AdminRepositories;
+		$adminRepositories = new AdminRepositorie;
 		$userInfo = $adminRepositories->checkUser($user);
 		if(!$userInfo){
 			return ['code'=>0,'msg'=>'用户不存在','data'=>[]];

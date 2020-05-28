@@ -180,13 +180,13 @@
 			    <tbody>
 			         @foreach($lists as $list)
 			          <tr>
-			              <td> {{$list->id}} </td>
-			              <td> {{$list->title}} </td>
-			              <td> {{$list->content}} </td>
-			              <td> @if(isset($list->click_times)) {{$list->click_times}} @endif </td>
+			              <td> {{$list['id']}} </td>
+			              <td> {{$list['title']}} </td>
+			              <td> {{$list['content']}} </td>
+			              <td> @if(isset($list['click_times'])) {{$list['click_times']}} @endif </td>
 			              <td>
-			              	<button class="edit-btn" onclick="editArticle('{{$list->id}}','{{$list->title}}','{{$list->content}}')">修改</button>
-			              	<button class="del-btn" onclick="delArticle('{{$list->id}}')">删除</button>
+                            <button class="edit-btn" onclick="editArticle('{{$list['id']}}','{{$list['title']}}','{{$list['content']}}')">修改</button>
+			              <button class="del-btn" onclick="delArticle('{{$list['id']}}')">删除</button>
 			              </td>
 			          </tr>
 			         @endforeach
@@ -198,7 +198,7 @@
     <script type="text/javascript">
     	function delArticle(id){
     		if(confirm('确定删除记录ID为'+id+'的文章吗？')){
-    			window.location.href = '/article/delArticle?id='+id;
+    			window.location.href = '/article/delArticle/'+id;
     		}
     	}
     	function addArticle(){
