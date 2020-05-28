@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Services\AdminServices;
 use App\Services\ArticleServices;
-use Illuminate\Support\Facades\Redirect;
+use Redirect;
 use Validator;
 class ArticleController extends Controller
 {
