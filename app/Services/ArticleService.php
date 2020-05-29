@@ -25,10 +25,6 @@ class ArticleService{
 	public function delArticle(array $data){
 		$articleRepositorie = new ArticleRepositorie;
 		$result = $articleRepositorie->delArticle($data);
-		if($result){
-			$htmlStrings = view('article.viewList',['lists'=>$this->getArticleList()])->__toString();
-			file_put_contents('article/viewList.html', $htmlStrings);
-		}
 		return $result;
 	}
 	public function addArticle(array $data){
@@ -38,24 +34,6 @@ class ArticleService{
 		isset($data['id']) && $data['id']>0 && $article['id'] = $data['id'];
 		$articleRepositorie = new ArticleRepositorie;
 		$result = $articleRepositorie->addArticle($article);
-		if($result){
-			$dir = 'article/';
-			if(!is_dir($dir)){
-				mkdir($dir);
-			}
-			if(!isset($article['id'])){
-				$article['id'] = $result;
-			}
-			$htmlStrings = view('article.viewDetail',['list'=>$article])->__toString();
-			if(isset($article['id'])){
-				file_put_contents($dir.$article['id'].'.html', $htmlStrings);
-			}else{
-				file_put_contents($dir.$result.'.html', $htmlStrings);
-			}
-			$htmlStrings = view('article.viewList',['lists'=>$this->getArticleList()])->__toString();
-			file_put_contents($dir.'viewList.html', $htmlStrings);
-    		
-		}
 		return $result;
 	}
 	//点击次数统计
