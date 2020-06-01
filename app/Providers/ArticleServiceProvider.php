@@ -24,12 +24,15 @@ class ArticleServiceProvider extends ServiceProvider
             $this->wirteViewList();
 
         });
+        Article::updating(function ($article) {
+
+        });
         Article::updated(function($article){
             $this->wirteViewDetail($article);
             $this->wirteViewList();
         });
          Article::deleted(function($article){
-            $this->wirteViewDetail($article);
+            $this->delViewDetail($article);
             $this->wirteViewList();
         });
     }
@@ -44,6 +47,7 @@ class ArticleServiceProvider extends ServiceProvider
         //
     }
     protected function wirteViewDetail($article){
+
         $dir = 'article/';
         if(!is_dir($dir)){
             mkdir($dir);
@@ -52,6 +56,10 @@ class ArticleServiceProvider extends ServiceProvider
         $htmlStrings = view('article.viewDetail',['list'=>$article])->__toString();
         file_put_contents($dir.$article['id'].'.html', $htmlStrings);
             
+    }
+    protected function delViewDetail($article){
+        dump($article['id']);
+        @unlink('article/'.$article['id'].'.html');
     }
     protected function wirteViewList(){
         $dir = 'article/';

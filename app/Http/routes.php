@@ -30,17 +30,20 @@ Route::post('admin/checkLogin','AdminController@checkLogin');
 // Route::post('article/addArticle',['middleware'=>'auth',function(App\Http\Controllers\ArticleController $article){
 // 	return $article->addArticle();
 // }]);
-Route::match(['get', 'post'],'article/getArticleList',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article){
-	return $article->getArticleList();
-}]);
-Route::get('article/delArticle/{id}',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article,$id){
-	return $article->delArticle($id);
-}]);
-Route::post('article/addArticle',['middleware'=>'checkLogin',function(App\Http\Controllers\ArticleController $article,Illuminate\Http\Request $request){
-	return $article->addArticle($request->all());
-}]);
+Route::group(['middleware'=>'checkLogin'],function(){
+	Route::match(['get', 'post'],'article/getArticleList','ArticleController@getArticleList');
+	Route::get('article/delArticle/{id}',function(App\Http\Controllers\ArticleController $article,$id){
+		return $article->delArticle($id);
+	});
+	Route::post('article/addArticle','ArticleController@addArticle');
+});
+
+
+
 Route::get('admin/clearSession','AdminController@clearSession');
 Route::post('article/click','ArticleController@click');
 // Route::auth();
 
 // Route::get('/home', 'HomeController@index');
+
+Route::get('test','RedisController@test');

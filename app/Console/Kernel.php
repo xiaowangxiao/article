@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
+        Commands\ArticleClickStatic::class,
     ];
 
     /**
@@ -26,5 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $filePath = '/www/article/1.log';
+        $schedule->command('command:clickStatic')->everyMinute()->withoutOverlapping()->sendOutputTo($filePath);
     }
 }

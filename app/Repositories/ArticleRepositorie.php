@@ -14,11 +14,13 @@ class ArticleRepositorie{
 		return Article::destroy($data['id']);
 	}
 	public function addArticle(array $data){
-		$article = new Article;
-		
 		if(isset($data['id'])){
-			return $article->where('id',$data['id'])->update(['title'=>$data['title'],'content'=>$data['content']]);
+			$article = Article::where('id',$data['id'])->first();
+			$article->title = $data['title'];
+			$article->content = $data['content'];
+			return $article->save();
 		}else{
+			$article = new Article;
 			$article->title = $data['title'];
 			$article->content = $data['content'];
 			$res = $article->save();
